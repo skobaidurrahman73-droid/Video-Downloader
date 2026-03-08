@@ -3,197 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Video Downloader</title>
+    <title>Video Player Pro</title>
     <style>
-        :root {
-            --primary: #ff0000;
-            --secondary: #6e8efb;
-            --bg: #f8fafc;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        .card {
-            background: white;
-            padding: 35px;
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            text-align: center;
-            max-width: 420px;
-            width: 90%;
-            position: relative;
-        }
-
-        .logo-box {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 15px;
-            display: none;
-            animation: bounceIn 0.5s;
-        }
-
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(1); }
-        }
-
-        .logo-box img { width: 100%; border-radius: 12px; }
-
-        h2 { color: #2d3436; margin-bottom: 8px; font-size: 24px; }
-        p { color: #636e72; font-size: 14px; margin-bottom: 25px; }
-
-        .input-container {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        input {
-            width: 100%;
-            padding: 15px 85px 15px 15px;
-            border: 2px solid #eee;
-            border-radius: 15px;
-            box-sizing: border-box;
-            outline: none;
-            font-size: 15px;
-            transition: 0.3s;
-        }
-
-        input:focus { border-color: var(--secondary); }
-
-        .action-btns {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            gap: 5px;
-        }
-
-        .paste-btn, .clear-btn {
-            padding: 7px 12px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 11px;
-            transition: 0.2s;
-        }
-
-        .paste-btn { background: #6c5ce7; color: white; }
-        .clear-btn { background: #ff7675; color: white; display: none; }
-
-        .btn {
-            background: linear-gradient(135deg, #ff0000, #cb2027);
-            color: white;
-            padding: 16px;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-            font-size: 17px;
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
-            transition: 0.3s;
-        }
-
-        .btn:hover { transform: translateY(-2px); opacity: 0.9; }
-
-        #status { margin-top: 15px; font-size: 13px; color: #555; }
+        body { font-family: 'Segoe UI', sans-serif; background: #0f172a; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; color: #fff; }
+        .card { background: #1e293b; padding: 30px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); text-align: center; max-width: 450px; width: 90%; border: 1px solid #334155; }
+        .logo-box { width: 70px; height: 70px; margin: 0 auto 15px; display: none; }
+        .logo-box img { width: 100%; border-radius: 10px; }
+        h2 { color: #38bdf8; font-size: 22px; margin-bottom: 20px; }
+        .input-group { position: relative; margin-bottom: 20px; }
+        input { width: 100%; padding: 15px; padding-right: 100px; background: #0f172a; border: 2px solid #334155; border-radius: 12px; color: #fff; outline: none; box-sizing: border-box; font-size: 14px; }
+        input:focus { border-color: #38bdf8; }
+        .action-btns { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); display: flex; gap: 5px; }
+        .paste-btn, .clear-btn { border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 11px; transition: 0.2s; }
+        .paste-btn { background: #38bdf8; color: #0f172a; }
+        .clear-btn { background: #ef4444; color: white; display: none; }
+        .btn { background: linear-gradient(135deg, #38bdf8, #818cf8); color: white; padding: 15px; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; transition: 0.3s; }
+        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        #videoArea { margin-top: 20px; width: 100%; border-radius: 12px; display: none; overflow: hidden; border: 1px solid #334155; height: 250px; }
+        iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <div id="logoContainer" class="logo-box">
-        <img id="siteLogo" src="" alt="Logo">
-    </div>
-
-    <h2>🚀 ভিডিও ডাউনলোড করুন!</h2>
-    <p>লিঙ্ক পেস্ট করুন এবং দ্রুত ডাউনলোড শুরু করুন</p>
-    
-    <div class="input-container">
-        <input type="text" id="videoLink" placeholder="এখানে লিঙ্ক দিন..." oninput="handleInput()">
+    <div id="logoContainer" class="logo-box"><img id="siteLogo" src="" alt="Logo"></div>
+    <h2>🚀 ভিডিও প্লেয়ার ও অ্যাডস</h2>
+    <div class="input-group">
+        <input type="text" id="videoLink" placeholder="লিঙ্ক এখানে পেস্ট করুন..." oninput="checkInput()">
         <div class="action-btns">
-            <button id="pasteBtn" class="paste-btn" onclick="pasteLink()">PASTE</button>
-            <button id="clearBtn" class="clear-btn" onclick="clearInput()">✖</button>
+            <button id="pasteBtn" class="paste-btn" onclick="processPaste()">PASTE</button>
+            <button id="clearBtn" class="clear-btn" onclick="processClear()">✖</button>
         </div>
     </div>
+    <button class="btn" onclick="handleAction()">ভিডিও দেখুন</button>
     
-    <button class="btn" onclick="startDownload()">ডাউনলোড করুন</button>
-    <div id="status"></div>
+    <div id="videoArea">
+        <iframe id="player" src="" allowfullscreen></iframe>
+    </div>
 </div>
 
 <script>
-    function handleInput() {
+    // ইনপুট বক্স চেক করা
+    function checkInput() {
         const link = document.getElementById('videoLink').value;
         const clearBtn = document.getElementById('clearBtn');
         const pasteBtn = document.getElementById('pasteBtn');
+        const logoContainer = document.getElementById('logoContainer');
+        const siteLogo = document.getElementById('siteLogo');
 
-        // লিঙ্ক থাকলে ডিলিট বাটন দেখাবে, পেস্ট বাটন লুকাবে
-        if (link.length > 0) {
+        if (link.trim().length > 0) {
             clearBtn.style.display = "block";
             pasteBtn.style.display = "none";
+            
+            // লোগো দেখানো
+            let icon = "";
+            if (link.includes("facebook")) icon = "https://cdn-icons-png.flaticon.com/512/124/124010.png";
+            else if (link.includes("youtube") || link.includes("youtu.be")) icon = "https://cdn-icons-png.flaticon.com/512/1384/1384060.png";
+            else if (link.includes("tiktok")) icon = "https://cdn-icons-png.flaticon.com/512/3046/3046121.png";
+            else if (link.includes("instagram")) icon = "https://cdn-icons-png.flaticon.com/512/174/174855.png";
+
+            if (icon) {
+                siteLogo.src = icon;
+                logoContainer.style.display = "block";
+            }
         } else {
             clearBtn.style.display = "none";
             pasteBtn.style.display = "block";
+            logoContainer.style.display = "none";
         }
-        showLogo(link);
     }
 
-    async function pasteLink() {
+    // পেস্ট বাটন কাজ না করলে এটি ব্যবহার করুন
+    async function processPaste() {
         try {
             const text = await navigator.clipboard.readText();
             document.getElementById('videoLink').value = text;
-            handleInput();
+            checkInput();
         } catch (err) {
-            alert("Paste করার অনুমতি দিন!");
+            alert("আপনার ব্রাউজারে পেস্ট করার অনুমতি দিন অথবা হাত দিয়ে পেস্ট করুন।");
         }
     }
 
-    function clearInput() {
+    // সব মুছে ফেলা
+    function processClear() {
         document.getElementById('videoLink').value = "";
-        handleInput();
+        document.getElementById('videoArea').style.display = "none";
+        document.getElementById('player').src = "";
+        checkInput();
     }
 
-    function showLogo(link) {
-        const container = document.getElementById('logoContainer');
-        const img = document.getElementById('siteLogo');
-        let icon = "";
-
-        if (link.includes("facebook")) icon = "https://cdn-icons-png.flaticon.com/512/124/124010.png";
-        else if (link.includes("youtube") || link.includes("youtu.be")) icon = "https://cdn-icons-png.flaticon.com/512/1384/1384060.png";
-        else if (link.includes("tiktok")) icon = "https://cdn-icons-png.flaticon.com/512/3046/3046121.png";
-        else if (link.includes("instagram")) icon = "https://cdn-icons-png.flaticon.com/512/174/174855.png";
-
-        if (icon) {
-            img.src = icon;
-            container.style.display = "block";
-        } else {
-            container.style.display = "none";
-        }
-    }
-
-    function startDownload() {
-        const link = document.getElementById('videoLink').value;
-        if (!link) {
-            alert("অনুগ্রহ করে লিঙ্ক দিন!");
+    // মূল বাটন এর কাজ
+    function handleAction() {
+        const url = document.getElementById('videoLink').value;
+        if (!url) {
+            alert("অনুগ্রহ করে একটি লিঙ্ক দিন!");
             return;
         }
 
-        // একবার অ্যাড ওপেন হবে
+        // ১. অ্যাড ওপেন করা
         window.open("https://omg10.com/4/10527852", '_blank');
 
-        const status = document.getElementById('status');
-        status.innerHTML = "প্রসেসিং হচ্ছে... <br> (ভিডিও ডাউনলোডের জন্য একটি API প্রয়োজন)";
+        // ২. ভিডিও প্লে করা (ইউটিউব এর জন্য)
+        const videoArea = document.getElementById('videoArea');
+        const player = document.getElementById('player');
+        let embedUrl = "";
+
+        if (url.includes("youtube.com/shorts/")) {
+            embedUrl = url.replace("shorts/", "embed/").split('?')[0];
+        } else if (url.includes("youtube.com/watch?v=")) {
+            const videoId = url.split('v=')[1].split('&')[0];
+            embedUrl = "https://www.youtube.com/embed/" + videoId;
+        } else if (url.includes("youtu.be/")) {
+            const videoId = url.split('/').pop().split('?')[0];
+            embedUrl = "https://www.youtube.com/embed/" + videoId;
+        }
+
+        if (embedUrl) {
+            player.src = embedUrl;
+            videoArea.style.display = "block";
+        } else {
+            alert("অ্যাড লোড হয়েছে! তবে এই ভিডিওটি এখানে সরাসরি প্লে করা সম্ভব নয়।");
+        }
     }
 </script>
 
