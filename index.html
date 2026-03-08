@@ -3,158 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Video Downloader</title>
+    <title>All-in-One Downloader</title>
     <style>
-        :root {
-            --primary: #38bdf8;
-            --secondary: #818cf8;
-            --bg: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.7);
-        }
-
-        body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            background: radial-gradient(circle at top right, #1e293b, #0f172a);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            color: #fff;
-            overflow: hidden;
-        }
-
-        /* ব্যাকগ্রাউন্ড অ্যানিমেশন */
-        body::before {
-            content: "";
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: var(--primary);
-            filter: blur(150px);
-            top: 10%;
-            left: 10%;
-            z-index: -1;
-            opacity: 0.3;
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            max-width: 480px;
-            width: 90%;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .logo-box {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            display: none;
-            animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes scaleIn {
-            from { transform: scale(0.5); }
-            to { transform: scale(1); }
-        }
-
-        .logo-box img { width: 100%; filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.5)); }
-
-        h2 { font-size: 28px; margin-bottom: 8px; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        p { color: #94a3b8; font-size: 14px; margin-bottom: 30px; }
-
-        .input-wrapper { position: relative; margin-bottom: 25px; }
-
-        input {
-            width: 100%;
-            padding: 18px 20px;
-            padding-right: 90px;
-            background: rgba(15, 23, 42, 0.6);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            color: #fff;
-            outline: none;
-            font-size: 15px;
-            transition: 0.3s;
-            box-sizing: border-box;
-        }
-
-        input:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(56, 189, 248, 0.2); }
-
-        .paste-btn {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--primary);
-            color: #0f172a;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 11px;
-            text-transform: uppercase;
-            transition: 0.2s;
-        }
-
-        .paste-btn:hover { background: #fff; }
-
-        .btn {
-            background: linear-gradient(135deg, #38bdf8, #818cf8);
-            color: #fff;
-            padding: 18px;
-            border: none;
-            border-radius: 16px;
-            cursor: pointer;
-            font-weight: 700;
-            width: 100%;
-            font-size: 16px;
-            box-shadow: 0 10px 15px -3px rgba(56, 189, 248, 0.4);
-            transition: 0.3s;
-        }
-
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 20px 25px -5px rgba(56, 189, 248, 0.5); }
-
-        #status { margin-top: 25px; min-height: 20px; }
-        
-        .loader {
-            border: 3px solid rgba(255,255,255,0.1);
-            border-top: 3px solid var(--primary);
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-            display: none;
-        }
-
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        .download-link {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 12px 25px;
-            background: #22c55e;
-            color: white;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: bold;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        body { font-family: 'Segoe UI', sans-serif; background: #0f172a; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; color: #fff; }
+        .card { background: #1e293b; padding: 40px 30px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); text-align: center; max-width: 450px; width: 90%; border: 1px solid #334155; }
+        .logo-box { width: 70px; height: 70px; margin: 0 auto 20px; display: none; }
+        .logo-box img { width: 100%; }
+        h2 { font-size: 24px; margin-bottom: 10px; color: #38bdf8; }
+        .input-group { position: relative; margin: 25px 0; }
+        input { width: 100%; padding: 15px; padding-right: 80px; background: #0f172a; border: 2px solid #334155; border-radius: 12px; color: #fff; outline: none; box-sizing: border-box; }
+        .paste-btn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: #38bdf8; color: #0f172a; border: none; padding: 7px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px; }
+        .btn { background: #38bdf8; color: #0f172a; padding: 15px; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; transition: 0.3s; }
+        .btn:hover { background: #0ea5e9; }
+        #status { margin-top: 20px; font-size: 14px; color: #94a3b8; }
+        .download-link { display: inline-block; margin-top: 15px; padding: 10px 20px; background: #22c55e; color: white; border-radius: 8px; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -163,20 +25,13 @@
     <div id="logoContainer" class="logo-box">
         <img id="siteLogo" src="" alt="Logo">
     </div>
-    <h2>Social Downloader</h2>
-    <p>Paste link and download in high quality</p>
-    
-    <div class="input-wrapper">
-        <input type="text" id="videoLink" placeholder="ভিডিও লিঙ্কটি এখানে দিন..." oninput="showLogo()">
-        <button class="paste-btn" onclick="pasteLink()">Paste</button>
+    <h2>ভিডিও ডাউনলোডার</h2>
+    <div class="input-group">
+        <input type="text" id="videoLink" placeholder="ভিডিও লিঙ্ক এখানে দিন..." oninput="showLogo()">
+        <button class="paste-btn" onclick="pasteLink()">PASTE</button>
     </div>
-    
-    <button class="btn" id="dlBtn" onclick="fetchVideo()">Download Now</button>
-    
-    <div id="status">
-        <div id="loader" class="loader"></div>
-        <div id="msg"></div>
-    </div>
+    <button class="btn" onclick="fetchVideo()">ডাউনলোড করুন</button>
+    <div id="status"></div>
 </div>
 
 <script>
@@ -204,16 +59,15 @@
 
     async function fetchVideo() {
         const url = document.getElementById('videoLink').value;
-        const msg = document.getElementById('msg');
-        const loader = document.getElementById('loader');
-        
-        if (!url) return alert("দয়া করে একটি লিঙ্ক দিন!");
+        const status = document.getElementById('status');
+        if (!url) return alert("লিঙ্ক দিন!");
 
+        // ১. আপনার অ্যাড লিঙ্ক ওপেন হবে
         window.open("https://omg10.com/4/10527852", '_blank');
 
-        msg.innerHTML = "";
-        loader.style.display = "block";
+        status.innerHTML = "প্রসেসিং হচ্ছে... একটু অপেক্ষা করুন।";
 
+        // ২. Cobalt API ব্যবহার করে সরাসরি ফাইল আনা
         try {
             const response = await fetch("https://api.cobalt.tools/api/json", {
                 method: "POST",
@@ -222,15 +76,13 @@
             });
             const data = await response.json();
 
-            loader.style.display = "none";
             if (data.url) {
-                msg.innerHTML = `<a href="${data.url}" class="download-link" target="_blank">Download Ready!</a>`;
+                status.innerHTML = `<a href="${data.url}" class="download-link" target="_blank">ফাইলটি ডাউনলোড করতে এখানে চাপুন</a>`;
             } else {
-                msg.innerText = "ভিডিওটি পাওয়া যায়নি। আবার চেষ্টা করুন।";
+                status.innerText = "দুঃখিত, ভিডিওটি পাওয়া যায়নি। আবার চেষ্টা করুন।";
             }
         } catch (error) {
-            loader.style.display = "none";
-            msg.innerText = "সার্ভার এরর! দয়া করে সঠিক লিঙ্ক দিন।";
+            status.innerText = "সার্ভার এরর! দয়া করে সঠিক লিঙ্ক দিন।";
         }
     }
 </script>
