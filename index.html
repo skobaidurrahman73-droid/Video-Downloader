@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Downloader with Ads</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 90%; }
+        .logo-box { width: 80px; height: 80px; margin: 0 auto 15px; display: none; }
+        .logo-box img { width: 100%; border-radius: 10px; }
+        h2 { color: #ff0000; margin-bottom: 10px; font-size: 22px; }
+        p { color: #555; font-size: 14px; }
+        input { width: 100%; padding: 12px; margin: 20px 0; border: 2px solid #ddd; border-radius: 10px; box-sizing: border-box; outline: none; }
+        .btn { background: linear-gradient(135deg, #ff0000, #cb2027); color: white; padding: 14px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; transition: 0.3s; }
+        .btn:hover { opacity: 0.9; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div id="logoContainer" class="logo-box">
+        <img id="siteLogo" src="" alt="Logo">
+    </div>
+
+    <h2>🚀 ভিডিও ডাউনলোড করুন!</h2>
+    <p>ইউটিউব, ফেসবুক, টিকটক ও ইনস্টাগ্রাম ভিডিও সরাসরি ডাউনলোড করুন।</p>
+    
+    <input type="text" id="videoLink" placeholder="ভিডিও লিঙ্ক এখানে পেস্ট করুন..." oninput="showLogo()">
+    
+    <button class="btn" onclick="startDownload()">ডাউনলোড করুন</button>
+</div>
+
+<script>
+    // লিঙ্ক দিলে লোগো দেখানোর ফাংশন
+    function showLogo() {
+        const link = document.getElementById('videoLink').value;
+        const logoContainer = document.getElementById('logoContainer');
+        const siteLogo = document.getElementById('siteLogo');
+
+        if (link.includes("facebook")) {
+            siteLogo.src = "https://cdn-icons-png.flaticon.com/512/124/124010.png";
+            logoContainer.style.display = "block";
+        } else if (link.includes("youtube") || link.includes("youtu.be")) {
+            siteLogo.src = "https://cdn-icons-png.flaticon.com/512/1384/1384060.png";
+            logoContainer.style.display = "block";
+        } else if (link.includes("tiktok")) {
+            siteLogo.src = "https://cdn-icons-png.flaticon.com/512/3046/3046121.png";
+            logoContainer.style.display = "block";
+        } else {
+            logoContainer.style.display = "none";
+        }
+    }
+
+    // ডাউনলোড এবং অ্যাড দেখানোর ফাংশন
+    function startDownload() {
+        const link = document.getElementById('videoLink').value;
+        if (!link) {
+            alert("অনুগ্রহ করে লিঙ্ক দিন!");
+            return;
+        }
+
+        // আপনার অ্যাড লিঙ্কটি এখানে দিন (Direct Link)
+        const adLink = "https://omg10.com/4/10527852"; 
+        
+        // নতুন ট্যাবে অ্যাড ওপেন হবে
+        window.open(adLink, '_blank');
+
+        // ডাউনলোড প্রসেস শুরু করার মেসেজ (এখানে API কানেক্ট করতে হবে)
+        alert("আপনার ভিডিওটি প্রসেস হচ্ছে এবং ডাউনলোড শুরু হবে...");
+    }
+</script>
+
+</body>
+</html>
