@@ -3,20 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All-in-One Downloader</title>
+    <title>Premium Video Downloader</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #0f172a; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; color: #fff; }
-        .card { background: #1e293b; padding: 40px 30px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); text-align: center; max-width: 450px; width: 90%; border: 1px solid #334155; }
-        .logo-box { width: 70px; height: 70px; margin: 0 auto 20px; display: none; }
-        .logo-box img { width: 100%; }
-        h2 { font-size: 24px; margin-bottom: 10px; color: #38bdf8; }
-        .input-group { position: relative; margin: 25px 0; }
-        input { width: 100%; padding: 15px; padding-right: 80px; background: #0f172a; border: 2px solid #334155; border-radius: 12px; color: #fff; outline: none; box-sizing: border-box; }
-        .paste-btn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: #38bdf8; color: #0f172a; border: none; padding: 7px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px; }
-        .btn { background: #38bdf8; color: #0f172a; padding: 15px; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; transition: 0.3s; }
-        .btn:hover { background: #0ea5e9; }
-        #status { margin-top: 20px; font-size: 14px; color: #94a3b8; }
-        .download-link { display: inline-block; margin-top: 15px; padding: 10px 20px; background: #22c55e; color: white; border-radius: 8px; text-decoration: none; font-weight: bold; }
+        :root {
+            --primary: #ff0000;
+            --secondary: #6e8efb;
+            --bg: #f8fafc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: white;
+            padding: 35px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+            position: relative;
+        }
+
+        .logo-box {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 15px;
+            display: none;
+            animation: bounceIn 0.5s;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        .logo-box img { width: 100%; border-radius: 12px; }
+
+        h2 { color: #2d3436; margin-bottom: 8px; font-size: 24px; }
+        p { color: #636e72; font-size: 14px; margin-bottom: 25px; }
+
+        .input-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 85px 15px 15px;
+            border: 2px solid #eee;
+            border-radius: 15px;
+            box-sizing: border-box;
+            outline: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        input:focus { border-color: var(--secondary); }
+
+        .action-btns {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 5px;
+        }
+
+        .paste-btn, .clear-btn {
+            padding: 7px 12px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 11px;
+            transition: 0.2s;
+        }
+
+        .paste-btn { background: #6c5ce7; color: white; }
+        .clear-btn { background: #ff7675; color: white; display: none; }
+
+        .btn {
+            background: linear-gradient(135deg, #ff0000, #cb2027);
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            font-size: 17px;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+            transition: 0.3s;
+        }
+
+        .btn:hover { transform: translateY(-2px); opacity: 0.9; }
+
+        #status { margin-top: 15px; font-size: 13px; color: #555; }
     </style>
 </head>
 <body>
@@ -25,65 +116,84 @@
     <div id="logoContainer" class="logo-box">
         <img id="siteLogo" src="" alt="Logo">
     </div>
-    <h2>ভিডিও ডাউনলোডার</h2>
-    <div class="input-group">
-        <input type="text" id="videoLink" placeholder="ভিডিও লিঙ্ক এখানে দিন..." oninput="showLogo()">
-        <button class="paste-btn" onclick="pasteLink()">PASTE</button>
+
+    <h2>🚀 ভিডিও ডাউনলোড করুন!</h2>
+    <p>লিঙ্ক পেস্ট করুন এবং দ্রুত ডাউনলোড শুরু করুন</p>
+    
+    <div class="input-container">
+        <input type="text" id="videoLink" placeholder="এখানে লিঙ্ক দিন..." oninput="handleInput()">
+        <div class="action-btns">
+            <button id="pasteBtn" class="paste-btn" onclick="pasteLink()">PASTE</button>
+            <button id="clearBtn" class="clear-btn" onclick="clearInput()">✖</button>
+        </div>
     </div>
-    <button class="btn" onclick="fetchVideo()">ডাউনলোড করুন</button>
+    
+    <button class="btn" onclick="startDownload()">ডাউনলোড করুন</button>
     <div id="status"></div>
 </div>
 
 <script>
+    function handleInput() {
+        const link = document.getElementById('videoLink').value;
+        const clearBtn = document.getElementById('clearBtn');
+        const pasteBtn = document.getElementById('pasteBtn');
+
+        // লিঙ্ক থাকলে ডিলিট বাটন দেখাবে, পেস্ট বাটন লুকাবে
+        if (link.length > 0) {
+            clearBtn.style.display = "block";
+            pasteBtn.style.display = "none";
+        } else {
+            clearBtn.style.display = "none";
+            pasteBtn.style.display = "block";
+        }
+        showLogo(link);
+    }
+
     async function pasteLink() {
         try {
             const text = await navigator.clipboard.readText();
             document.getElementById('videoLink').value = text;
-            showLogo();
-        } catch (err) { alert("Paste করার অনুমতি দিন!"); }
+            handleInput();
+        } catch (err) {
+            alert("Paste করার অনুমতি দিন!");
+        }
     }
 
-    function showLogo() {
-        const link = document.getElementById('videoLink').value.toLowerCase();
+    function clearInput() {
+        document.getElementById('videoLink').value = "";
+        handleInput();
+    }
+
+    function showLogo(link) {
         const container = document.getElementById('logoContainer');
         const img = document.getElementById('siteLogo');
         let icon = "";
+
         if (link.includes("facebook")) icon = "https://cdn-icons-png.flaticon.com/512/124/124010.png";
         else if (link.includes("youtube") || link.includes("youtu.be")) icon = "https://cdn-icons-png.flaticon.com/512/1384/1384060.png";
         else if (link.includes("tiktok")) icon = "https://cdn-icons-png.flaticon.com/512/3046/3046121.png";
         else if (link.includes("instagram")) icon = "https://cdn-icons-png.flaticon.com/512/174/174855.png";
 
-        if (icon) { img.src = icon; container.style.display = "block"; }
-        else { container.style.display = "none"; }
+        if (icon) {
+            img.src = icon;
+            container.style.display = "block";
+        } else {
+            container.style.display = "none";
+        }
     }
 
-    async function fetchVideo() {
-        const url = document.getElementById('videoLink').value;
-        const status = document.getElementById('status');
-        if (!url) return alert("লিঙ্ক দিন!");
+    function startDownload() {
+        const link = document.getElementById('videoLink').value;
+        if (!link) {
+            alert("অনুগ্রহ করে লিঙ্ক দিন!");
+            return;
+        }
 
-        // ১. আপনার অ্যাড লিঙ্ক ওপেন হবে
+        // একবার অ্যাড ওপেন হবে
         window.open("https://omg10.com/4/10527852", '_blank');
 
-        status.innerHTML = "প্রসেসিং হচ্ছে... একটু অপেক্ষা করুন।";
-
-        // ২. Cobalt API ব্যবহার করে সরাসরি ফাইল আনা
-        try {
-            const response = await fetch("https://api.cobalt.tools/api/json", {
-                method: "POST",
-                headers: { "Content-Type": "application/json", "Accept": "application/json" },
-                body: JSON.stringify({ url: url, videoQuality: "720" })
-            });
-            const data = await response.json();
-
-            if (data.url) {
-                status.innerHTML = `<a href="${data.url}" class="download-link" target="_blank">ফাইলটি ডাউনলোড করতে এখানে চাপুন</a>`;
-            } else {
-                status.innerText = "দুঃখিত, ভিডিওটি পাওয়া যায়নি। আবার চেষ্টা করুন।";
-            }
-        } catch (error) {
-            status.innerText = "সার্ভার এরর! দয়া করে সঠিক লিঙ্ক দিন।";
-        }
+        const status = document.getElementById('status');
+        status.innerHTML = "প্রসেসিং হচ্ছে... <br> (ভিডিও ডাউনলোডের জন্য একটি API প্রয়োজন)";
     }
 </script>
 
